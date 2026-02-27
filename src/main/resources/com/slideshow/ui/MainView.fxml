@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720" prefWidth="980" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.slideshow.ui.MainController">
+
+    <top>
+        <VBox>
+            <ToolBar prefHeight="49.0" prefWidth="980.0">
+                <Label text="Режим: " />
+                <ComboBox fx:id="modeCombo" onAction="#onModeChanged" prefWidth="150" />
+                <Separator />
+                <Button onAction="#onLoadImage" text="Добавить слайд" />
+                <Button onAction="#onLoadFolder" text="Добавить папку" />
+                <Button onAction="#onSaveShow" prefHeight="25.0" prefWidth="133.0" text="Сохранить слайдшоу" />
+                <Button onAction="#onLoadShow" text="Открыть слайдшоу" />
+                <Separator />
+                <Button onAction="#onAddAudio" text="Добавить аудио" />
+                <Button onAction="#onSetAnimation" text="Тип анимации" />
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.17, 0.78">
+
+            <!-- список слайдов слева -->
+            <VBox minWidth="140" style="-fx-background-color: white; -fx-padding: 6;">
+                <Label style="-fx-text-fill: black; -fx-font-weight: bold;" text="Слайды" />
+                <ListView fx:id="slideListView" onMouseClicked="#onSlideSelected" VBox.vgrow="ALWAYS" />
+            </VBox>
+
+            <!-- главная область -->
+            <StackPane fx:id="slidePane" minWidth="400" prefHeight="538.0" prefWidth="547.0" style="-fx-background-color: #1a1a2e;">
+                <Label fx:id="emptyLabel" style="-fx-text-fill: #666; -fx-font-size: 18;" text="Загрузите картинку для начала" />
+            </StackPane>
+
+            <!-- заметки справа -->
+            <VBox minWidth="180" spacing="6" style="-fx-padding: 10;">
+                <Label style="-fx-font-weight: bold;" text="Заметки" />
+                <TextArea fx:id="notesArea" promptText="Заметки к слайду..." wrapText="true" VBox.vgrow="ALWAYS" />
+                <Button maxWidth="Infinity" onAction="#onSaveNote" text="Сохранить заметку" />
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <VBox>
+            <!-- строка статуса -->
+            <HBox fx:id="statusBarContainer" spacing="10" style="-fx-padding: 4 12; -fx-background-color: white;">
+                <Label fx:id="defaultStatusLabel" style="-fx-text-fill: #aaa;" text="Нет слайдов" />
+            </HBox>
+
+            <!-- аудио плеер -->
+            <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-padding: 6 12; -fx-background-color: white;">
+                <Label style="-fx-text-fill: #aaa;" text="♪ " />
+                <Label fx:id="audioLabel" style="-fx-text-fill: #888;" text="Нет аудио" HBox.hgrow="ALWAYS" />
+                <Button onAction="#onAudioPlay" style="-fx-background-color: #2a5e2a; -fx-text-fill: white;" text="► Играть" />
+                <Button onAction="#onAudioPause" style="-fx-background-color: #555; -fx-text-fill: white;" text="⏸ Пауза" />
+                <Button onAction="#onAudioStop" style="-fx-background-color: #555; -fx-text-fill: white;" text="⏹ Стоп" />
+            </HBox>
+
+            <!-- навигация -->
+            <HBox alignment="CENTER" spacing="8" style="-fx-padding: 10 14; -fx-background-color: white;">
+                <Button fx:id="btnFirst" onAction="#onFirst" style="-fx-font-size: 17; -fx-min-width: 42; -fx-background-color: #444; -fx-text-fill: white;" text="⏮" />
+                <Button fx:id="btnPrev" onAction="#onPrev" style="-fx-font-size: 17; -fx-min-width: 42; -fx-background-color: #444; -fx-text-fill: white;" text="◄" />
+                <Button fx:id="btnNext" onAction="#onNext" style="-fx-font-size: 17; -fx-min-width: 42; -fx-background-color: #444; -fx-text-fill: white;" text="►" />
+                <Button fx:id="btnLast" onAction="#onLast" style="-fx-font-size: 17; -fx-min-width: 42; -fx-background-color: #444; -fx-text-fill: white;" text="⏭" />
+                <Separator />
+                <Button onAction="#onMoveUp" style="-fx-background-color: #555; -fx-text-fill: white;" text="↑ Выше" />
+                <Button onAction="#onMoveDown" style="-fx-background-color: #555; -fx-text-fill: white;" text="↓ Ниже" />
+                <Separator />
+                <Button onAction="#onDeleteSlide" style="-fx-background-color: #7b1c1c; -fx-text-fill: white;" text="Удалить" />
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>
